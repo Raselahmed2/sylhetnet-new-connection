@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylhet Net - New Connection Request</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --dark-bg: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 15px;
+            color: #f8fafc;
+        }
+
+        /* Container Card */
+        .app-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 540px;
+            border-radius: 28px;
+            padding: 35px 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Header */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 18px;
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 12px;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .brand-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-header p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 16px;
+            color: #818cf8;
+            font-size: 17px;
+            transition: all 0.3s;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            font-size: 15px;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.85);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .form-input:focus + i {
+            color: var(--secondary);
+        }
+
+        /* Package Selector Grid */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .pkg-item {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .pkg-item:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .pkg-item.active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(236, 72, 153, 0.15));
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+        }
+
+        .pkg-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .pkg-item.active .pkg-title {
+            color: #a5b4fc;
+        }
+
+        .pkg-speed {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin: 2px 0;
+        }
+
+        .pkg-price {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .pkg-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 10px;
+            background: var(--secondary);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        /* Location Button & Visual Map Badge */
+        .location-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+        }
+
+        .location-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .map-badge {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 15px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            align-items: center;
+            gap: 12px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .map-badge i {
+            font-size: 22px;
+            color: var(--success);
+        }
+
+        .map-badge-text {
+            font-size: 13px;
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        .map-badge-text span {
+            display: block;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: normal;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.45);
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 28px 24px;
+            border-radius: 20px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            animation: popup 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popup {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: #f59e0b;
+            font-size: 26px;
+        }
+
+        .modal-box h3 {
+            font-size: 19px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .modal-box p {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-close-btn {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+            .app-card {
+                padding: 25px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-card">
+    <div class="brand-header">
+        <div class="brand-logo">
+            <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h2>নতুন সংযোগের আবেদন</h2>
+        <p>Sylhet Net Broadband - হাই-স্পিড অপটিক্যাল ফাইবার</p>
+    </div>
+
+    <form id="connectionForm">
+        <!-- Full Name -->
+        <div class="form-group">
+            <label class="form-label">আপনার নাম</label>
+            <div class="input-box">
+                <input type="text" id="name" class="form-input" placeholder="পূর্ণ নাম লিখুন" required>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+            <label class="form-label">মোবাইল নম্বর</label>
+            <div class="input-box">
+                <input type="tel" id="phone" class="form-input" placeholder="যেমন: 01700000000" required>
+                <i class="fa-solid fa-phone"></i>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+            <label class="form-label">বাসার ঠিকানা</label>
+            <div class="input-box">
+                <input type="text" id="address" class="form-input" placeholder="বাসা/হোল্ডিং নং, রোড, এলাকা" required>
+                <i class="fa-solid fa-house-chimney"></i>
+            </div>
+        </div>
+
+        <!-- Interactive Package Selector -->
+        <div class="form-group">
+            <label class="form-label">প্যাকেজ নির্বাচন করুন</label>
+            <input type="hidden" id="selectedPackage" required>
+            
+            <div class="package-grid">
+                <div class="pkg-item" onclick="selectPkg(this, 'Starter (60 Mbps) - 650 TK (*১০০০tk চার্জ)')">
+                    <div class="pkg-tag">Offer</div>
+                    <div class="pkg-title">Starter</div>
+                    <div class="pkg-speed">60 Mbps</div>
+                    <div class="pkg-price">৳650 / মাস</div>
+                </div>
+
+                <div class="pkg-item active" onclick="selectPkg(this, 'Popular (60 Mbps) - 790 TK')">
+                    <div class="pkg-tag" style="background:#10b981;">Best</div>
+                    <div class="pkg-title">Popular</div>
+                    <div class="pkg-speed">60 Mbps</div>
+                    <div class="pkg-price">৳790 / মাস</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectPkg(this, 'Purple Horse (100 Mbps) - 850 TK')">
+                    <div class="pkg-title">Purple Horse</div>
+                    <div class="pkg-speed">100 Mbps</div>
+                    <div class="pkg-price">৳850 / মাস</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectPkg(this, 'Eagle Speed (120 Mbps) - 1000 TK')">
+                    <div class="pkg-title">Eagle Speed</div>
+                    <div class="pkg-speed">120 Mbps</div>
+                    <div class="pkg-price">৳1000 / মাস</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectPkg(this, 'Cheetah (140 Mbps) - 1200 TK')">
+                    <div class="pkg-title">Cheetah</div>
+                    <div class="pkg-speed">140 Mbps</div>
+                    <div class="pkg-price">৳1200 / মাস</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectPkg(this, 'Ultra Speed (160 Mbps) - 1500 TK')">
+                    <div class="pkg-title">Ultra Speed</div>
+                    <div class="pkg-speed">160 Mbps</div>
+                    <div class="pkg-price">৳1500 / মাস</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Date Picker -->
+        <div class="form-group">
+            <label class="form-label">সংযোগের তারিখ</label>
+            <div class="input-box">
+                <input type="date" id="connectionDate" class="form-input" required>
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+        </div>
+
+        <!-- Live Location -->
+        <div class="form-group">
+            <label class="form-label">লাইভ জিপিএস লোকেশন (আবশ্যক)</label>
+            <button type="button" class="location-btn" id="locBtn" onclick="getLiveLocation()">
+                <i class="fa-solid fa-location-crosshairs"></i> আমার বর্তমান লোকেশন যুক্ত করুন
+            </button>
+
+            <!-- Visual Map Badge -->
+            <div class="map-badge" id="mapBadge">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="map-badge-text">
+                    GPS লোকেশন যুক্ত হয়েছে!
+                    <span id="coordsText">Lat: --, Lon: --</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">
+            <i class="fa-brands fa-whatsapp" style="font-size:20px;"></i> আবেদন সাবমিট করুন
+        </button>
+    </form>
+</div>
+
+<!-- GPS Popup Modal -->
+<div class="modal-overlay" id="gpsModal">
+    <div class="modal-box">
+        <div class="modal-icon">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h3>আপনার ফোনের GPS বন্ধ রয়েছে!</h3>
+        <p>সঠিক অবস্থান চিহ্নিত করতে ওপর থেকে নোটিফিকেশন বার টেনে ফোনের <b>Location / GPS</b> অন করুন এবং আবার চেষ্টা করুন।</p>
+        <button class="modal-close-btn" onclick="closeModal()">ঠিক আছে</button>
+    </div>
+</div>
+
+<script>
+    let latitude = "";
+    let longitude = "";
+
+    // ডিফল্ট Popular প্যাকেজ সেট
+    document.getElementById('selectedPackage').value = 'Popular (60 Mbps) - 790 TK';
+
+    // তারিখ রেস্ট্রিকশন
+    document.getElementById('connectionDate').min = new Date().toISOString().split('T')[0];
+    document.getElementById('connectionDate').value = new Date().toISOString().split('T')[0];
+
+    // প্যাকেজ সিলেক্ট হ্যান্ডলার
+    function selectPkg(element, pkgValue) {
+        document.querySelectorAll('.pkg-item').forEach(item => item.classList.remove('active'));
+        element.classList.add('active');
+        document.getElementById('selectedPackage').value = pkgValue;
+    }
+
+    function closeModal() {
+        document.getElementById('gpsModal').style.display = 'none';
+    }
+
+    function getLiveLocation() {
+        const btn = document.getElementById('locBtn');
+        const badge = document.getElementById('mapBadge');
+        
+        if (!navigator.geolocation) {
+            alert("আপনার ব্রাউজার লোকেশন সাপোর্ট করে না।");
+            return;
+        }
+
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> জিপিএস সিগন্যাল খোঁজা হচ্ছে...`;
+        btn.style.opacity = "0.8";
+        
+        // High Accuracy with Timeout Config
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 9000,
+            maximumAge: 0
+        };
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                latitude = position.coords.latitude.toFixed(6);
+                longitude = position.coords.longitude.toFixed(6);
+                
+                btn.style.display = "none";
+                badge.style.display = "flex";
+                document.getElementById('coordsText').innerText = `Lat: ${latitude}, Lon: ${longitude}`;
+            }, 
+            (error) => {
+                btn.innerHTML = `<i class="fa-solid fa-location-crosshairs"></i> আবার চেষ্টা করুন`;
+                btn.style.opacity = "1";
+                
+                if (error.code === error.POSITION_UNAVAILABLE || error.code === error.TIMEOUT) {
+                    document.getElementById('gpsModal').style.display = 'flex';
+                } else if (error.code === error.PERMISSION_DENIED) {
+                    alert("ব্রাউজারে লোকেশন পারমিশন এলাও (Allow) করুন।");
+                } else {
+                    alert("লোকেশন পাওয়া যায়নি, দয়া করে আবার চেষ্টা করুন।");
+                }
+            }, 
+            options
+        );
+    }
+
+    // ফর্ম সাবমিট - WhatsApp Redirect
+    document.getElementById('connectionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (!latitude || !longitude) {
+            alert("দয়া করে সাবমিট করার আগে আপনার জিপিএস লোকেশন যুক্ত করুন।");
+            return;
+        }
+
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const selectedPackage = document.getElementById('selectedPackage').value;
+        const connectionDate = document.getElementById('connectionDate').value;
+        
+        const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        const whatsappNumber = "8801335763448"; 
+        
+        const message = `*নতুন ইন্টারনেট কানেকশনের আবেদন*%0A%0A👤 *নাম:* ${name}%0A📞 *ফোন:* ${phone}%0A🏠 *ঠিকানা:* ${address}%0A📦 *প্যাকেজ:* ${selectedPackage}%0A📅 *তারিখ:* ${connectionDate}%0A📍 *লাইভ লোকেশন:* ${googleMapsLink}`;
+
+        window.location.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+    });
+</script>
+
+</body>
+</html>
