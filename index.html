@@ -36,7 +36,6 @@
             color: #f8fafc;
         }
 
-        /* Container Card */
         .app-card {
             background: rgba(30, 41, 59, 0.85);
             backdrop-filter: blur(20px);
@@ -49,24 +48,22 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Header */
         .brand-header {
             text-align: center;
             margin-bottom: 28px;
         }
 
-        .brand-logo {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 18px;
-            font-size: 28px;
-            color: #fff;
+        .brand-logo-img {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 4px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
             margin-bottom: 12px;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.35);
+            display: inline-block;
         }
 
         .brand-header h2 {
@@ -83,7 +80,6 @@
             margin-top: 4px;
         }
 
-        /* Form Controls */
         .form-group {
             margin-bottom: 20px;
         }
@@ -128,11 +124,6 @@
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
         }
 
-        .form-input:focus + i {
-            color: var(--secondary);
-        }
-
-        /* Package Selector Grid */
         .package-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -186,6 +177,14 @@
             font-weight: 600;
         }
 
+        .pkg-note {
+            font-size: 10.5px;
+            color: #f59e0b;
+            font-weight: 600;
+            margin-top: 2px;
+            line-height: 1.2;
+        }
+
         .pkg-tag {
             position: absolute;
             top: 8px;
@@ -198,7 +197,6 @@
             font-weight: 700;
         }
 
-        /* Location Button & Visual Map Badge */
         .location-btn {
             width: 100%;
             background: linear-gradient(135deg, #0284c7, #2563eb);
@@ -252,10 +250,9 @@
             font-weight: normal;
         }
 
-        /* Submit Button */
         .submit-btn {
             width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #25d366, #128c7e);
             color: #fff;
             border: none;
             padding: 16px;
@@ -269,15 +266,14 @@
             justify-content: center;
             gap: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.45);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
         }
 
-        /* Modal Popup */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -367,15 +363,12 @@
 
 <div class="app-card">
     <div class="brand-header">
-        <div class="brand-logo">
-            <i class="fa-solid fa-bolt"></i>
-        </div>
+        <img src="logo.jpg" alt="Sylhet Net Logo" class="brand-logo-img">
         <h2>নতুন সংযোগের আবেদন</h2>
         <p>Sylhet Net Broadband - হাই-স্পিড অপটিক্যাল ফাইবার</p>
     </div>
 
     <form id="connectionForm">
-        <!-- Full Name -->
         <div class="form-group">
             <label class="form-label">আপনার নাম</label>
             <div class="input-box">
@@ -384,7 +377,6 @@
             </div>
         </div>
 
-        <!-- Phone Number -->
         <div class="form-group">
             <label class="form-label">মোবাইল নম্বর</label>
             <div class="input-box">
@@ -393,7 +385,6 @@
             </div>
         </div>
 
-        <!-- Address -->
         <div class="form-group">
             <label class="form-label">বাসার ঠিকানা</label>
             <div class="input-box">
@@ -402,17 +393,17 @@
             </div>
         </div>
 
-        <!-- Interactive Package Selector -->
         <div class="form-group">
             <label class="form-label">প্যাকেজ নির্বাচন করুন</label>
             <input type="hidden" id="selectedPackage" required>
             
             <div class="package-grid">
-                <div class="pkg-item" onclick="selectPkg(this, 'Starter (60 Mbps) - 650 TK (*১০০০tk চার্জ)')">
+                <div class="pkg-item" onclick="selectPkg(this, 'Starter (60 Mbps) - 650 TK (*১০০০tk কানেকশন চার্জ)')">
                     <div class="pkg-tag">Offer</div>
                     <div class="pkg-title">Starter</div>
                     <div class="pkg-speed">60 Mbps</div>
                     <div class="pkg-price">৳650 / মাস</div>
+                    <div class="pkg-note">*1000 টাকা চার্জ প্রযোজ্য</div>
                 </div>
 
                 <div class="pkg-item active" onclick="selectPkg(this, 'Popular (60 Mbps) - 790 TK')">
@@ -448,7 +439,6 @@
             </div>
         </div>
 
-        <!-- Date Picker -->
         <div class="form-group">
             <label class="form-label">সংযোগের তারিখ</label>
             <div class="input-box">
@@ -457,14 +447,12 @@
             </div>
         </div>
 
-        <!-- Live Location -->
         <div class="form-group">
-            <label class="form-label">লাইভ জিপিএস লোকেশন (আবশ্যক)</label>
+            <label class="form-label">আপনার লাইভ লোকেশনটা যুক্ত করুন</label>
             <button type="button" class="location-btn" id="locBtn" onclick="getLiveLocation()">
                 <i class="fa-solid fa-location-crosshairs"></i> আমার বর্তমান লোকেশন যুক্ত করুন
             </button>
 
-            <!-- Visual Map Badge -->
             <div class="map-badge" id="mapBadge">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="map-badge-text">
@@ -474,14 +462,12 @@
             </div>
         </div>
 
-        <!-- Submit Button -->
-        <button type="submit" class="submit-btn">
+        <button type="submit" class="submit-btn" id="submitBtn">
             <i class="fa-brands fa-whatsapp" style="font-size:20px;"></i> আবেদন সাবমিট করুন
         </button>
     </form>
 </div>
 
-<!-- GPS Popup Modal -->
 <div class="modal-overlay" id="gpsModal">
     <div class="modal-box">
         <div class="modal-icon">
@@ -497,14 +483,11 @@
     let latitude = "";
     let longitude = "";
 
-    // ডিফল্ট Popular প্যাকেজ সেট
     document.getElementById('selectedPackage').value = 'Popular (60 Mbps) - 790 TK';
 
-    // তারিখ রেস্ট্রিকশন
     document.getElementById('connectionDate').min = new Date().toISOString().split('T')[0];
     document.getElementById('connectionDate').value = new Date().toISOString().split('T')[0];
 
-    // প্যাকেজ সিলেক্ট হ্যান্ডলার
     function selectPkg(element, pkgValue) {
         document.querySelectorAll('.pkg-item').forEach(item => item.classList.remove('active'));
         element.classList.add('active');
@@ -527,7 +510,6 @@
         btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> জিপিএস সিগন্যাল খোঁজা হচ্ছে...`;
         btn.style.opacity = "0.8";
         
-        // High Accuracy with Timeout Config
         const options = {
             enableHighAccuracy: true,
             timeout: 9000,
@@ -559,7 +541,7 @@
         );
     }
 
-    // ফর্ম সাবমিট - WhatsApp Redirect
+    // Direct WhatsApp App Launching Protocol
     document.getElementById('connectionForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -577,9 +559,24 @@
         const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
         const whatsappNumber = "8801335763448"; 
         
-        const message = `*নতুন ইন্টারনেট কানেকশনের আবেদন*%0A%0A👤 *নাম:* ${name}%0A📞 *ফোন:* ${phone}%0A🏠 *ঠিকানা:* ${address}%0A📦 *প্যাকেজ:* ${selectedPackage}%0A📅 *তারিখ:* ${connectionDate}%0A📍 *লাইভ লোকেশন:* ${googleMapsLink}`;
+        const rawMessage = `*নতুন ইন্টারনেট কানেকশনের আবেদন*\n\n👤 *নাম:* ${name}\n📞 *ফোন:* ${phone}\n🏠 *ঠিকানা:* ${address}\n📦 *প্যাকেজ:* ${selectedPackage}\n📅 *তারিখ:* ${connectionDate}\n📍 *লাইভ লোকেশন:* ${googleMapsLink}`;
+        
+        const encodedMessage = encodeURIComponent(rawMessage);
 
-        window.location.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+        // Native App URI Scheme (Force Open WhatsApp Mobile/Desktop App)
+        const nativeAppUrl = `whatsapp://send?phone=${whatsappNumber}&text=${encodedMessage}`;
+        const webFallbackUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> WhatsApp এ পাঠানো হচ্ছে...`;
+
+        // Direct App launch with instant fallback handling
+        window.location.href = nativeAppUrl;
+
+        setTimeout(function() {
+            window.location.href = webFallbackUrl;
+            submitBtn.innerHTML = `<i class="fa-brands fa-whatsapp"></i> আবেদন সাবমিট করুন`;
+        }, 1200);
     });
 </script>
 
